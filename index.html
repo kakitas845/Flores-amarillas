@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Flores amarillas para ti 💛</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #fff9dc, #ffe98a);
+      touch-action: manipulation;
+    }
+
+    /* -------------------------
+       ENCABEZADO
+    ------------------------- */
+
+    .encabezado {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 30px 20px;
+      color: #705600;
+      pointer-events: none;
+    }
+
+    .encabezado h1 {
+      font-size: clamp(28px, 7vw, 50px);
+      margin-bottom: 10px;
+    }
+
+    .encabezado p {
+      font-size: clamp(14px, 4vw, 19px);
+      line-height: 1.5;
+    }
+
+    /* -------------------------
+       JARDÍN
+    ------------------------- */
+
+    #jardin {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    /* -------------------------
+       FLOR
+    ------------------------- */
+
+    .flor {
+      position: absolute;
+
+      width: 80px;
+      height: 150px;
+
+      transform: translateX(-50%);
+
+      cursor: pointer;
+
+      z-index: 3;
+
+      animation: crecerFlor 1.8s ease-out forwards;
+      transform-origin: bottom center;
+    }
+
+    @keyframes crecerFlor {
+
+      0% {
+        transform:
+          translateX(-50%)
+          scaleY(0);
+        opacity: 0;
+      }
+
+      60% {
+        transform:
+          translateX(-50%)
+          scaleY(1.08);
+        opacity: 1;
+      }
+
+      100% {
+        transform:
+          translateX(-50%)
+          scaleY(1);
+        opacity: 1;
+      }
+
+    }
+
+    /* -------------------------
+       TALLO
+    ------------------------- */
+
+    .tallo {
+      position: absolute;
+
+      width: 6px;
+      height: 100px;
+
+      left: 37px;
+      bottom: 0;
+
+      background: #4c8c2b;
+
+      border-radius: 10px;
+
+      transform-origin: bottom;
+    }
+
+    /* -------------------------
+       HOJAS
+    ------------------------- */
+
+    .hoja {
+      position: absolute;
+
+      width: 34px;
+      height: 18px;
+
+      background: #65a936;
+
+      border-radius: 100% 0 100% 0;
+
+      bottom: 42px;
+
+      z-index: 2;
+    }
+
+    .hoja.izquierda {
+      left: 5px;
+      transform: rotate(-25deg);
+    }
+
+    .hoja.derecha {
+      right: 5px;
+      transform: scaleX(-1) rotate(-25deg);
+    }
+
+    /* -------------------------
+       CABEZA DE LA FLOR
+    ------------------------- */
+
+    .cabeza {
+      position: absolute;
+
+      width: 70px;
+      height: 70px;
+
+      left: 5px;
+      top: 5px;
+
+      z-index: 4;
+    }
+
+    /* -------------------------
+       PÉTALOS
+    ------------------------- */
+
+    .petalo {
+      position: absolute;
+
+      width: 24px;
+      height: 38px;
+
+      left: 23px;
+      top: 0;
+
+      background: #ffd700;
+
+      border-radius: 60% 60% 50% 50%;
+
+      transform-origin: 12px 35px;
+
+      box-shadow:
+        0 0 0 1px #e5b900;
+    }
+
+    .petalo:nth-child(1) {
+      transform: rotate(0deg) translateY(-10px);
+    }
+
+    .petalo:nth-child(2) {
+      transform: rotate(45deg) translateY(-10px);
+    }
+
+    .petalo:nth-child(3) {
+      transform: rotate(90deg) translateY(-10px);
+    }
+
+    .petalo:nth-child(4) {
+      transform: rotate(135deg) translateY(-10px);
+    }
+
+    .petalo:nth-child(5) {
+      transform: rotate(180deg) translateY(-10px);
+    }
+
+    .petalo:nth-child(6) {
+      transform: rotate(225deg) translateY(-10px);
+    }
+
+    .petalo:nth-child(7) {
+      transform: rotate(270deg) translateY(-10px);
+    }
+
+    .petalo:nth-child(8) {
+      transform: rotate(315deg) translateY(-10px);
+    }
+
+    /* -------------------------
+       CENTRO
+    ------------------------- */
+
+    .centro {
+      position: absolute;
+
+      width: 30px;
+      height: 30px;
+
+      left: 20px;
+      top: 20px;
+
+      background: #875700;
+
+      border-radius: 50%;
+
+      border: 3px solid #6d4500;
+
+      z-index: 5;
+    }
+
+    /* -------------------------
+       TIERRA
+    ------------------------- */
+
+    .suelo {
+      position: absolute;
+
+      bottom: 0;
+      left: 0;
+
+      width: 100%;
+      height: 45px;
+
+      background: #8c642c;
+
+      z-index: 1;
+    }
+
+    /* -------------------------
+       CARTA
+    ------------------------- */
+
+    .carta-fondo {
+
+      position: fixed;
+
+      inset: 0;
+
+      background: rgba(50, 40, 0, 0.48);
+
+      display: none;
+
+      align-items: center;
+      justify-content: center;
+
+      padding: 20px;
+
+      z-index: 100;
+    }
+
+    .carta-fondo.mostrar {
+      display: flex;
+    }
+
+    .carta {
+
+      width: min(92vw, 520px);
+
+      max-height: 85vh;
+
+      overflow-y: auto;
+
+      background: #fffdf1;
+
+      border-radius: 24px;
+
+      padding: 32px 25px;
+
+      text-align: center;
+
+      box-shadow:
+        0 20px 60px rgba(0,0,0,0.25);
+
+      animation: aparecerCarta 0.4s ease;
+    }
+
+    @keyframes aparecerCarta {
+
+      from {
+        opacity: 0;
+        transform: scale(0.8) translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+
+    }
+
+    .carta h2 {
+
+      color: #775900;
+
+      margin-bottom: 20px;
+
+      font-size: 28px;
+    }
+
+    .carta p {
+
+      color: #5c4a16;
+
+      font-family: Georgia, serif;
+
+      font-size: 18px;
+
+      line-height: 1.7;
+
+      white-space: pre-line;
+    }
+
+    .carta button {
+
+      margin-top: 25px;
+
+      border: none;
+
+      background: #ffd84d;
+
+      color: #5c4500;
+
+      padding: 13px 28px;
+
+      border-radius: 30px;
+
+      font-size: 16px;
+
+      font-weight: bold;
+
+      cursor: pointer;
+    }
+
+    /* -------------------------
+       CONTADOR
+    ------------------------- */
+
+    .contador {
+
+      position: fixed;
+
+      bottom: 55px;
+
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      z-index: 20;
+
+      background: rgba(255,255,255,0.75);
+
+      padding: 8px 16px;
+
+      border-radius: 30px;
+
+      color: #6b5400;
+
+      font-size: 14px;
+
+      pointer-events: none;
+    }
+
+    /* -------------------------
+       TELÉFONO
+    ------------------------- */
+
+    @media (max-width: 600px) {
+
+      .flor {
+        width: 70px;
+        height: 140px;
+      }
+
+      .carta {
+        padding: 25px 18px;
+      }
+
+      .carta p {
+        font-size: 16px;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="encabezado">
+
+    <h1>🌻 Flores para ti 🌻</h1>
+
+    <p>
+      Toca cualquier lugar del jardín...
+    </p>
+
+    <p>
+      y mira cómo nace una flor 💛
+    </p>
+
+  </div>
+
+
+  <div id="jardin">
+
+    <div class="suelo"></div>
+
+  </div>
+
+
+  <div class="contador" id="contador">
+    Flores: 0
+  </div>
+
+
+  <!-- CARTA -->
+
+  <div class="carta-fondo" id="cartaFondo">
+
+    <div class="carta">
+
+      <h2>
+        🌻 Para alguien muy especial 🌻
+      </h2>
+
+      <p>
+🌻 Por si todavía no te han dado tus flores amarillas… aquí tienes unas hechas especialmente para ti. 
+
+Porque hay personas que merecen recibir flores, incluso sin tener que pedirlas. 💛
+      </p>
+
+      <button id="cerrarCarta">
+        Cerrar 💛
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    const jardin =
+      document.getElementById("jardin");
+
+    const cartaFondo =
+      document.getElementById("cartaFondo");
+
+    const cerrarCarta =
+      document.getElementById("cerrarCarta");
+
+    const contador =
+      document.getElementById("contador");
+
+
+    let cantidadFlores = 0;
+
+
+    /* --------------------------------
+       CREAR FLOR
+    -------------------------------- */
+
+    function crearFlor(x) {
+
+      const flor =
+        document.createElement("div");
+
+      flor.classList.add("flor");
+
+
+      /*
+        La flor siempre comienza
+        desde el suelo.
+      */
+
+      const suelo =
+        window.innerHeight - 45;
+
+      flor.style.left = x + "px";
+
+      flor.style.top =
+        (suelo - 150) + "px";
+
+
+      flor.innerHTML = `
+
+        <div class="cabeza">
+
+          <div class="petalo"></div>
+          <div class="petalo"></div>
+          <div class="petalo"></div>
+          <div class="petalo"></div>
+          <div class="petalo"></div>
+          <div class="petalo"></div>
+          <div class="petalo"></div>
+          <div class="petalo"></div>
+
+          <div class="centro"></div>
+
+        </div>
+
+        <div class="tallo"></div>
+
+        <div class="hoja izquierda"></div>
+
+        <div class="hoja derecha"></div>
+
+      `;
+
+
+      /* ----------------------------
+         AL TOCAR LA FLOR
+      ---------------------------- */
+
+      flor.addEventListener(
+        "pointerdown",
+        function(evento) {
+
+          evento.stopPropagation();
+
+          abrirCarta();
+
+        }
+      );
+
+
+      jardin.appendChild(flor);
+
+
+      cantidadFlores++;
+
+      contador.textContent =
+        "Flores: " + cantidadFlores;
+
+    }
+
+
+    /* --------------------------------
+       ABRIR CARTA
+    -------------------------------- */
+
+    function abrirCarta() {
+
+      cartaFondo.classList.add("mostrar");
+
+    }
+
+
+    /* --------------------------------
+       CERRAR CARTA
+    -------------------------------- */
+
+    function cerrarCartaFuncion() {
+
+      cartaFondo.classList.remove("mostrar");
+
+    }
+
+
+    /* --------------------------------
+       TOCAR EL JARDÍN
+    -------------------------------- */
+
+    document.addEventListener(
+      "pointerdown",
+      function(evento) {
+
+        if (
+          cartaFondo.classList.contains("mostrar")
+        ) {
+          return;
+        }
+
+
+        if (
+          evento.target.closest(".flor")
+        ) {
+          return;
+        }
+
+
+        /*
+          Evitamos que las flores
+          aparezcan demasiado cerca
+          de los bordes.
+        */
+
+        const margen = 45;
+
+        let x = evento.clientX;
+
+        if (x < margen) {
+          x = margen;
+        }
+
+        if (
+          x > window.innerWidth - margen
+        ) {
+          x = window.innerWidth - margen;
+        }
+
+
+        crearFlor(x);
+
+      }
+    );
+
+
+    /* --------------------------------
+       BOTÓN CERRAR
+    -------------------------------- */
+
+    cerrarCarta.addEventListener(
+      "pointerdown",
+      function(evento) {
+
+        evento.stopPropagation();
+
+        cerrarCartaFuncion();
+
+      }
+    );
+
+
+    /* --------------------------------
+       CLIC FUERA DE LA CARTA
+    -------------------------------- */
+
+    cartaFondo.addEventListener(
+      "pointerdown",
+      function(evento) {
+
+        if (
+          evento.target === cartaFondo
+        ) {
+
+          cerrarCartaFuncion();
+
+        }
+
+      }
+    );
+
+  </script>
+
+</body>
+</html>
